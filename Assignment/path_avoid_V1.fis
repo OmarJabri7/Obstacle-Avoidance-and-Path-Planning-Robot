@@ -1,0 +1,61 @@
+[System]
+Name='path_avoid_V1'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=2
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='bisector'
+
+[Input1]
+Name='turning_angle'
+Range=[-3.14159265358979 3.14159265358979]
+NumMFs=3
+MF1='negative_turn':'trapmf',[-3.491 -3.142 -1.571 0]
+MF2='threshold':'trimf',[-0.974 -0.0512456676860356 1.02]
+MF3='positive_turn':'trapmf',[0 1.571 3.142 3.491]
+
+[Input2]
+Name='sensor_left'
+Range=[0 1]
+NumMFs=3
+MF1='too_close':'trapmf',[0 0 0.25 0.3]
+MF2='close':'trapmf',[0.2 0.3 0.7 0.8]
+MF3='near':'trapmf',[0.7 0.8 1 1]
+
+[Input3]
+Name='sensor_right'
+Range=[0 1]
+NumMFs=3
+MF1='too_close':'trapmf',[0 0 0.25 0.3]
+MF2='close':'trapmf',[0.2 0.3 0.7 0.8]
+MF3='near':'trapmf',[0.7 0.8 1 1]
+
+[Output1]
+Name='left_voltage'
+Range=[-6 6]
+NumMFs=2
+MF1='reverse':'trapmf',[-10 -10 -6 0]
+MF2='forward':'trapmf',[0 6 10 10]
+
+[Output2]
+Name='right_voltage'
+Range=[-6 6]
+NumMFs=2
+MF1='reverse':'trapmf',[-10 -10 -6 0]
+MF2='forward':'trapmf',[0 6 10 10]
+
+[Rules]
+2 3 3, 2 2 (1) : 1
+2 2 2, 2 2 (1) : 1
+2 1 1, 1 2 (1) : 1
+1 3 3, 1 2 (1) : 1
+1 2 2, 1 2 (1) : 1
+1 1 1, 1 2 (1) : 1
+3 3 3, 2 1 (1) : 1
+3 2 2, 2 1 (1) : 1
+3 1 1, 2 1 (1) : 1

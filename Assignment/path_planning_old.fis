@@ -1,0 +1,50 @@
+[System]
+Name='path_planning'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=2
+NumRules=6
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='current_heading_angle'
+Range=[-6.28318530717959 6.28318530717959]
+NumMFs=3
+MF1='neg_angle':'trapmf',[-8 -6.283 -3.142 -0.5]
+MF2='pos_angle':'trapmf',[0.5 3.142 6.283 8]
+MF3='saturate':'trimf',[-0.5 0 0.5]
+
+[Input2]
+Name='new_heading_angle'
+Range=[-6.28318530717959 6.28318530717959]
+NumMFs=3
+MF1='neg_angle':'trapmf',[-8 -6.283 -3.142 -0.5]
+MF2='pos_angle':'trapmf',[0.5 3.142 6.283 8]
+MF3='saturate':'trimf',[-0.5 0 0.5]
+
+[Output1]
+Name='voltage_left'
+Range=[-6 6]
+NumMFs=2
+MF1='reverse':'trapmf',[-10 -10 -6 0]
+MF2='forward':'trapmf',[0 6 10 10]
+
+[Output2]
+Name='voltage_right'
+Range=[-6 6]
+NumMFs=2
+MF1='reverse':'trapmf',[-10 -10 -6 0]
+MF2='forward':'trapmf',[0 6 10 10]
+
+[Rules]
+1 2, 2 1 (1) : 1
+2 1, 1 2 (1) : 1
+3 1, 1 2 (1) : 1
+3 2, 2 1 (1) : 1
+2 3, 2 1 (1) : 1
+1 3, 1 2 (1) : 1

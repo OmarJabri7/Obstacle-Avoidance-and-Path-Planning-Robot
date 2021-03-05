@@ -1,0 +1,49 @@
+[System]
+Name='path_and_avoid'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=2
+NumRules=6
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='turning_angle'
+Range=[-360 360]
+NumMFs=3
+MF1='negative_turn':'trapmf',[-400 -360 -180 0]
+MF2='threshold':'trimf',[-60 0 60]
+MF3='positive_turn':'trapmf',[0 180 360 400]
+
+[Input2]
+Name='obstacle_bool'
+Range=[0 1]
+NumMFs=2
+MF1='obstacle':'trapmf',[0 0 0.25 0.5]
+MF2='no_obstacle':'trapmf',[0.4 0.7 1 1]
+
+[Output1]
+Name='left_voltage'
+Range=[-6 6]
+NumMFs=2
+MF1='reverse':'pimf',[-10 -10 -6 0]
+MF2='forward':'pimf',[0 6 10 10]
+
+[Output2]
+Name='right_voltage'
+Range=[-6 6]
+NumMFs=2
+MF1='reverse':'pimf',[-10 -10 -6 0]
+MF2='forward':'pimf',[0 6 10 10]
+
+[Rules]
+1 1, 1 2 (1) : 1
+1 2, 1 2 (1) : 1
+3 1, 2 1 (1) : 1
+3 2, 2 1 (1) : 1
+2 2, 2 2 (1) : 1
+2 1, 1 2 (1) : 1

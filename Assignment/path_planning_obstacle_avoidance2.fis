@@ -1,0 +1,48 @@
+[System]
+Name='path_planning_obstacle_avoidance2'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=2
+NumRules=4
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='sensor_left'
+Range=[0 1]
+NumMFs=2
+MF1='too_close':'trapmf',[0 0 0.25 0.4]
+MF2='far':'trapmf',[0.4 0.6 1 1]
+
+[Input2]
+Name='sensor_right'
+Range=[0 1]
+NumMFs=2
+MF1='too_close':'trapmf',[0 0 0.25 0.4]
+MF2='far':'trapmf',[0.4 0.6 1 1]
+
+[Output1]
+Name='left_voltage'
+Range=[-6 6]
+NumMFs=3
+MF1='reverse':'trapmf',[-10 -10 -6 0]
+MF2='forward':'trapmf',[0 6 10 10]
+MF3='off':'trimf',[0 0 0]
+
+[Output2]
+Name='right_voltage'
+Range=[-6 6]
+NumMFs=3
+MF1='reverse':'trapmf',[-10 -10 -6 0]
+MF2='forward':'trapmf',[0 6 10 10]
+MF3='off':'trimf',[0 0 0]
+
+[Rules]
+1 2, 2 1 (1) : 1
+2 1, 1 2 (1) : 1
+1 1, 1 2 (1) : 1
+2 2, 3 3 (1) : 1

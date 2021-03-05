@@ -1,0 +1,39 @@
+[System]
+Name='avoid'
+Type='mamdani'
+Version=2.0
+NumInputs=1
+NumOutputs=2
+NumRules=2
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='obstacle_bool'
+Range=[0 1]
+NumMFs=2
+MF1='obstacle':'trapmf',[0 0 0.25 0.7]
+MF2='no_obstacle':'trapmf',[0.7 0.8 1 1]
+
+[Output1]
+Name='left_voltage'
+Range=[-6 6]
+NumMFs=3
+MF1='reverse':'pimf',[-10 -10 -6 0]
+MF2='forward':'pimf',[0 6 10 10]
+MF3='off':'trimf',[0 0 0]
+
+[Output2]
+Name='right_voltage'
+Range=[-6 6]
+NumMFs=3
+MF1='reverse':'pimf',[-10 -10 -6 0]
+MF2='forward':'pimf',[0 6 10 10]
+MF3='off':'trimf',[0 0 0]
+
+[Rules]
+1, 1 2 (1) : 1
+2, 3 3 (1) : 1
