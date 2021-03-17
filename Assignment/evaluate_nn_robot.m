@@ -65,14 +65,14 @@ obstacleMatrix = zeros(canvasSize_horizontal / stepSize_canvas, canvasSize_verti
 timeSteps_total = simulationTime_total/stepSize_time;
 state = state_initial;
 time = 0;
-robot = readfis("robot.fis");
-NeuralParameters  = [0,0,-1.4,1.2,1.25,-1];
+NeuralParametersTut  = [0.2,0.2,-1,1.2,1.25,-0.8];
+NeuralParametersImp = [0.3,0.3,-0.5,1,1,-0.5];
 %% 
 % Run simulation
 for timeStep = 1:timeSteps_total
     sensorOut = Sensor(state(timeStep,19), state(timeStep,20),state(timeStep,24), obstacleMatrix);
     disp(sensorOut);
-    [voltage_left, voltage_right] = NeuralController(sensorOut(1),sensorOut(2), NeuralParameters);
+    [voltage_left, voltage_right] = NeuralControllerImproved(sensorOut(1),sensorOut(2), NeuralParametersTut);
     disp([voltage_left,voltage_right]);
     voltages = [voltage_left; voltage_left;voltage_right; voltage_right];
     % *-------------------------------------*
@@ -104,9 +104,13 @@ end
 fig_x_y = figure(2); hold on; grid on;
 xlabel("y-pos")
 ylabel("x-pos")
-title("path of system using neural controller");
+title("path of system using neural controller Improved");
+plot(wall_1(:,1), wall_1(:,2),'k-');
+plot(wall_2(:,1), wall_2(:,2),'k-'); 
+plot(wall_3(:,1), wall_3(:,2),'k-');
+plot(wall_4(:,1), wall_4(:,2),'k-');
 plot(state(:,20), state(:,19));
-saveas(fig_x_y, "x_y nn position.jpg");
+saveas(fig_x_y, "x_y nn position Improved.jpg");
 
 fig_x_pos = figure(3); hold on; grid on;
 xlabel("time (s)");

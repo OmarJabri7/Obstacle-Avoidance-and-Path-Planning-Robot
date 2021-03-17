@@ -1,10 +1,10 @@
 [System]
-Name='robot'
+Name='robot_tutorial'
 Type='mamdani'
 Version=2.0
 NumInputs=2
 NumOutputs=2
-NumRules=7
+NumRules=9
 AndMethod='min'
 OrMethod='max'
 ImpMethod='min'
@@ -30,22 +30,26 @@ MF3='near':'trapmf',[0.7 0.8 1 1]
 [Output1]
 Name='voltage_left'
 Range=[-10 10]
-NumMFs=2
+NumMFs=3
 MF1='reverse':'trapmf',[-10 -10 -6 0]
 MF2='forward':'trapmf',[0 6 10 10]
+MF3='off':'trimf',[-2 0 2]
 
 [Output2]
 Name='voltage_right'
 Range=[-10 10]
-NumMFs=2
+NumMFs=3
 MF1='reverse':'trapmf',[-10 -10 -6 0]
 MF2='forward':'trapmf',[0 6 10 10]
+MF3='off':'trimf',[-2 0 2]
 
 [Rules]
 3 3, 2 2 (1) : 1
-2 2, 2 1 (1) : 2
-1 2, 2 1 (1) : 1
+3 2, 3 2 (1) : 1
+3 1, 1 2 (1) : 1
+2 3, 2 3 (1) : 1
+2 2, 1 1 (1) : 1
 2 1, 1 2 (1) : 1
 1 3, 2 1 (1) : 1
-3 1, 1 2 (1) : 1
-1 1, 1 2 (1) : 1
+1 2, 2 1 (1) : 1
+1 1, 1 1 (1) : 1

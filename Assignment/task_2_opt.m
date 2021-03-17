@@ -30,7 +30,7 @@ alpha = 0.1;
 plot(checkpoints(:,2), checkpoints(:,1),'k--d');
 xlim([-5 5])
 ylim([-5 5])
-obstacle_avoidance = readfis("robot.fis");
+obstacle_avoidance = readfis("robot_2.fis");
 path_planning = readfis("turning_angle_fl_new.fis");
 % weights = readfis("f_w.fis");
 voltagesOut = [0 0];

@@ -67,13 +67,11 @@ obstacleMatrix = zeros(canvasSize_horizontal / stepSize_canvas, canvasSize_verti
 timeSteps_total = simulationTime_total/stepSize_time;
 state = state_initial;
 time = 0;
-robot = readfis("robot.fis");
-%% 
+robot = readfis("robot_2.fis"); %Improved
+% robot = readfis("robot_tutorial.fis"); %Tutorial
+%% s
 % Run simulation
 for timeStep = 1:timeSteps_total
-    state(1,20) = 4;
-    state(1,19) = 0;
-    state(1,24) = -pi/3;
     sensorIn = Sensor(state(timeStep,19), state(timeStep,20),state(timeStep,24), obstacleMatrix);
     disp(sensorIn);
     voltagesOut = round(evalfis(robot,sensorIn));
@@ -111,9 +109,17 @@ end
 fig_x_y = figure(2); hold on; grid on;
 xlabel("y-pos")
 ylabel("x-pos")
-title("path of system using FL controller");
+xlim([-5,5]);
+ylim([-5,5]);
+title("path of system using FL controller Improved");
 plot(state(:,20), state(:,19));
-saveas(fig_x_y, "x_y fl position.jpg");
+plot(wall_1(:,1), wall_1(:,2),'k-');
+plot(wall_2(:,1), wall_2(:,2),'k-'); 
+plot(wall_3(:,1), wall_3(:,2),'k-');
+plot(wall_4(:,1), wall_4(:,2),'k-');
+plot(wall_5(:,1), wall_5(:,2),'k-');
+plot(wall_6(:,1), wall_6(:,2),'k-');
+saveas(fig_x_y, "x_y fl position Improved.jpg");
 
 fig_x_pos = figure(3); hold on; grid on;
 xlabel("time (s)");
